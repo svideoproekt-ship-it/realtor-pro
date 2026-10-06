@@ -68,7 +68,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header с градиентом */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-8 text-white shadow-2xl">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-40 h-40 bg-white/20 rounded-full -translate-x-20 -translate-y-20"></div>
@@ -84,7 +83,6 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats Grid с анимацией */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <div
@@ -115,7 +113,6 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activity */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl transition-shadow">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
@@ -157,7 +154,6 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Channels Summary */}
         <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 shadow-lg border border-slate-100">
           <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
             <span className="text-2xl">🌐</span>
@@ -202,7 +198,6 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-300/40 rounded-full translate-x-10 -translate-y-10"></div>
@@ -227,3 +222,6 @@ export const Dashboard: React.FC = () => {
           </button>
         </div>
       </div>
+    </div>
+  );
+};
