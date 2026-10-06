@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Bell, Key, Palette, Globe, Save } from 'lucide-react';
+import { User, Bell, Key, Globe, Save } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
   const [saved, setSaved] = useState(false);
@@ -25,70 +25,44 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">Настройки</h1>
-        <p className="text-slate-500 mt-1">Управление профилем и параметрами приложения</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-white">Настройки</h1>
+        <p className="text-slate-400 mt-1">Управление профилем и параметрами приложения</p>
       </div>
 
-      {/* Profile */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <User size={20} className="text-blue-600" />
+      <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+        <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+          <User size={20} className="text-blue-500" />
           Профиль
         </h2>
         <div className="flex flex-col sm:flex-row gap-6">
           <div className="flex-shrink-0">
-            <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold text-white">
+            <div className="w-20 h-20 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center text-2xl font-bold text-slate-300">
               АИ
             </div>
-            <button className="mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium">Изменить фото</button>
+            <button className="mt-2 text-xs text-blue-400 hover:text-blue-300 font-medium">Изменить фото</button>
           </div>
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium text-slate-700 mb-1.5 block">Имя</label>
-              <input
-                type="text"
-                value={settings.name}
-                onChange={(e) => setSettings(p => ({ ...p, name: e.target.value }))}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-slate-700 mb-1.5 block">Email</label>
-              <input
-                type="email"
-                value={settings.email}
-                onChange={(e) => setSettings(p => ({ ...p, email: e.target.value }))}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-slate-700 mb-1.5 block">Телефон</label>
-              <input
-                type="tel"
-                value={settings.phone}
-                onChange={(e) => setSettings(p => ({ ...p, phone: e.target.value }))}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-slate-700 mb-1.5 block">Компания</label>
-              <input
-                type="text"
-                value={settings.company}
-                onChange={(e) => setSettings(p => ({ ...p, company: e.target.value }))}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-              />
-            </div>
+            {['name', 'email', 'phone', 'company'].map((field) => (
+              <div key={field}>
+                <label className="text-sm font-medium text-slate-300 mb-1.5 block capitalize">
+                  {field === 'name' ? 'Имя' : field === 'email' ? 'Email' : field === 'phone' ? 'Телефон' : 'Компания'}
+                </label>
+                <input
+                  type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                  value={settings[field as keyof typeof settings]}
+                  onChange={(e) => setSettings(p => ({ ...p, [field]: e.target.value }))}
+                  className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Notifications */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <Bell size={20} className="text-purple-600" />
+      <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+        <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+          <Bell size={20} className="text-purple-500" />
           Уведомления
         </h2>
         <div className="space-y-4">
@@ -101,15 +75,16 @@ export const SettingsPage: React.FC = () => {
             };
             return (
               <div key={key} className="flex items-center justify-between py-2">
-                <span className="text-sm text-slate-700">{labels[key]}</span>
+                <span className="text-sm text-slate-300">{labels[key]}</span>
                 <button
                   onClick={() => setSettings(p => ({
                     ...p,
                     notifications: { ...p.notifications, [key]: !p.notifications[key as keyof typeof p.notifications] }
                   }))}
-                  className={`w-11 h-6 rounded-full transition-colors relative ${value ? 'bg-blue-600' : 'bg-slate-200'}`}
+                  className={`w-11 h-6 rounded-full transition-colors relative ${value ? 'bg-blue-600' : 'bg-slate-700'}`}
                 >
-                  <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform shadow-sm ${value ? 'translate-x-5.5 left-0.5' : 'left-0.5'}`}
+                  <div 
+                    className="w-5 h-5 bg-slate-200 rounded-full absolute top-0.5 transition-transform shadow-sm"
                     style={{ transform: value ? 'translateX(22px)' : 'translateX(0)' }}
                   />
                 </button>
@@ -119,90 +94,63 @@ export const SettingsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Publishing Settings */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <Globe size={20} className="text-green-600" />
+      <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+        <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+          <Globe size={20} className="text-emerald-500" />
           Публикация
         </h2>
         <div className="space-y-4">
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <p className="text-sm font-medium text-slate-700">Автопубликация</p>
-              <p className="text-xs text-slate-400">Автоматически публиковать на всех активных площадках</p>
+          {[
+            { key: 'autoPublish', title: 'Автопубликация', desc: 'Автоматически публиковать на всех активных площадках' },
+            { key: 'defaultChannels', title: 'Площадки по умолчанию', desc: 'Использовать стандартный набор площадок для новых объявлений' }
+          ].map((item) => (
+            <div key={item.key} className="flex items-center justify-between py-2">
+              <div>
+                <p className="text-sm font-medium text-slate-300">{item.title}</p>
+                <p className="text-xs text-slate-500">{item.desc}</p>
+              </div>
+              <button
+                onClick={() => setSettings(p => ({ ...p, [item.key]: !p[item.key as keyof typeof p] }))}
+                className={`w-11 h-6 rounded-full transition-colors relative ${settings[item.key as keyof typeof settings] ? 'bg-blue-600' : 'bg-slate-700'}`}
+              >
+                <div 
+                  className="w-5 h-5 bg-slate-200 rounded-full absolute top-0.5 transition-transform shadow-sm"
+                  style={{ transform: settings[item.key as keyof typeof settings] ? 'translateX(22px)' : 'translateX(0)' }}
+                />
+              </button>
             </div>
-            <button
-              onClick={() => setSettings(p => ({ ...p, autoPublish: !p.autoPublish }))}
-              className={`w-11 h-6 rounded-full transition-colors relative ${settings.autoPublish ? 'bg-blue-600' : 'bg-slate-200'}`}
-            >
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform shadow-sm"
-                style={{ transform: settings.autoPublish ? 'translateX(22px)' : 'translateX(0)' }}
-              />
-            </button>
-          </div>
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <p className="text-sm font-medium text-slate-700">Площадки по умолчанию</p>
-              <p className="text-xs text-slate-400">Использовать стандартный набор площадок для новых объявлений</p>
-            </div>
-            <button
-              onClick={() => setSettings(p => ({ ...p, defaultChannels: !p.defaultChannels }))}
-              className={`w-11 h-6 rounded-full transition-colors relative ${settings.defaultChannels ? 'bg-blue-600' : 'bg-slate-200'}`}
-            >
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform shadow-sm"
-                style={{ transform: settings.defaultChannels ? 'translateX(22px)' : 'translateX(0)' }}
-              />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* API Keys */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-          <Key size={20} className="text-orange-600" />
+      <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+        <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+          <Key size={20} className="text-amber-500" />
           API ключи
         </h2>
         <div className="space-y-4">
-          <div>
-            <label className="text-sm font-medium text-slate-700 mb-1.5 block">Telegram Bot Token</label>
-            <input
-              type="password"
-              value="•••••••••••••••••••••"
-              readOnly
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-400"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium text-slate-700 mb-1.5 block">Авито API Key</label>
-            <input
-              type="password"
-              value="•••••••••••••••••••••"
-              readOnly
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-400"
-            />
-          </div>
+          {['Telegram Bot Token', 'Авито API Key'].map((label) => (
+            <div key={label}>
+              <label className="text-sm font-medium text-slate-300 mb-1.5 block">{label}</label>
+              <input
+                type="password"
+                value="•••••••••••••••••••••"
+                readOnly
+                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-500 cursor-not-allowed"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Save Button */}
       <div className="flex justify-end">
         <button
           onClick={handleSave}
-          className={`px-6 py-3 font-medium rounded-xl transition-all flex items-center gap-2 ${
-            saved
-              ? 'bg-green-600 text-white'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
+          className={`px-6 py-3 font-medium rounded-lg transition-all flex items-center gap-2 ${
+            saved ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'
           }`}
         >
-          {saved ? (
-            <>✓ Сохранено</>
-          ) : (
-            <>
-              <Save size={18} />
-              Сохранить настройки
-            </>
-          )}
+          {saved ? (<>✓ Сохранено</>) : (<><Save size={18} /> Сохранить настройки</>)}
         </button>
       </div>
     </div>
